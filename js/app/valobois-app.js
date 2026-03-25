@@ -10,6 +10,9 @@ class ValoboisApp {
         this.ensureEssencesBoisDatalist();
         this.bindEvents();
         this.render();
+        if (typeof attachValoboisFirestoreSync === 'function') {
+            attachValoboisFirestoreSync(this);
+        }
     }
 
     ensureTermesBoisDatalist() {
@@ -360,7 +363,8 @@ class ValoboisApp {
             diagnosticStructure: existingMeta.diagnosticStructure || 'Inconnu',
             diagnosticAmiante: existingMeta.diagnosticAmiante || 'Inconnu',
             diagnosticPlomb: existingMeta.diagnosticPlomb || 'Inconnu',
-            diagnostiqueurContact: (existingMeta.diagnostiqueurContact || legacyOperateur || '').toString()
+            diagnostiqueurContact: (existingMeta.diagnostiqueurContact || legacyOperateur || '').toString(),
+            revision: Number.isFinite(Number(existingMeta.revision)) ? Number(existingMeta.revision) : 0,
         };
     }
 
@@ -408,7 +412,12 @@ class ValoboisApp {
 
     saveData() {
         try {
+            this.data.meta = this.getDefaultMeta(this.data.meta || {});
+            this.data.meta.revision = (Number(this.data.meta.revision) || 0) + 1;
             localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+            if (typeof window.__valoboisScheduleCloudSave === 'function') {
+                window.__valoboisScheduleCloudSave(this);
+            }
         } catch (e) {
             console.error(e);
         }
@@ -7453,6 +7462,10 @@ renderRadar() {
         try { localStorage.removeItem(this.storageKey); } catch(e) { console.error(e); }
         this.data = this.createInitialData();
         this.currentLotIndex = 0;
+        if (typeof window.__valoboisResetFirestoreEvaluation === 'function') {
+            window.__valoboisResetFirestoreEvaluation(this);
+        }
+        this.saveData();
         this.render();
     }
 

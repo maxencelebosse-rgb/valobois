@@ -141,9 +141,18 @@
         if (btnSignOut) {
             btnSignOut.addEventListener('click', function () {
                 clearError(errEl);
-                auth.signOut().catch(function (err) {
-                    showError(errEl, err);
-                });
+                auth
+                    .signOut()
+                    .then(function () {
+                        try {
+                            localStorage.removeItem('valobois_v1');
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    })
+                    .catch(function (err) {
+                        showError(errEl, err);
+                    });
             });
         }
 
