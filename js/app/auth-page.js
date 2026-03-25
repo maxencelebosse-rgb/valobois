@@ -1,7 +1,21 @@
 (function () {
     'use strict';
 
-    var REDIRECT = 'index.html';
+    var REDIRECT = 'mes-evaluations.html';
+
+    function redirectAfterAuth() {
+        var target = REDIRECT;
+        try {
+            var u = new URL(window.location.href);
+            var ret = u.searchParams.get('return');
+            if (ret === 'mes-evaluations.html' || ret === 'index.html') {
+                target = ret;
+            }
+        } catch (e) {
+            /* ignore */
+        }
+        window.location.href = target;
+    }
 
     function mapAuthError(code) {
         var messages = {
@@ -30,10 +44,6 @@
         if (!el) return;
         el.textContent = '';
         el.hidden = true;
-    }
-
-    function goHome() {
-        window.location.href = REDIRECT;
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -110,7 +120,7 @@
                 auth
                     .signInWithEmailAndPassword(em, pw)
                     .then(function () {
-                        goHome();
+                        redirectAfterAuth();
                     })
                     .catch(function (err) {
                         showError(errEl, err);
@@ -129,7 +139,7 @@
                 auth
                     .createUserWithEmailAndPassword(em, pw)
                     .then(function () {
-                        goHome();
+                        redirectAfterAuth();
                     })
                     .catch(function (err) {
                         showError(errEl, err);
@@ -145,7 +155,7 @@
                     .signOut()
                     .then(function () {
                         try {
-                            localStorage.removeItem('valobois_v1');
+                            localStorage.removeItem('valobois_firestore_eval_id');
                         } catch (e) {
                             console.error(e);
                         }

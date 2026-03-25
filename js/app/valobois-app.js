@@ -1,7 +1,9 @@
 class ValoboisApp {
     constructor() {
         this.storageKey = 'valobois_v1';
-        this.data = this.loadData();
+        /** 'guest' = persistance LocalStorage uniquement ; 'cloud' = Firestore uniquement (pas de payload en local). */
+        this.persistenceMode = 'guest';
+        this.data = this.loadGuestDataFromLocalStorage();
         this.currentLotIndex = 0;
         this.pendingDeleteLotIndex = null;
         this.seuilsCharts = {};
@@ -381,7 +383,8 @@ class ValoboisApp {
         return `${operation}_${date}`;
     }
 
-    loadData() {
+    /** Données invité / export HTML autonome — jamais utilisé pour le corps de l’évaluation en mode cloud. */
+    loadGuestDataFromLocalStorage() {
         try {
             // Vérifier d'abord si les données sont injectées dans la page (depuis un fichier HTML téléchargé)
             if (window.__VALOBOIS_DATA__) {
@@ -390,7 +393,7 @@ class ValoboisApp {
                 localStorage.setItem(this.storageKey, JSON.stringify(data));
                 return data;
             }
-            
+
             const raw = localStorage.getItem(this.storageKey);
             if (!raw) return this.createInitialData();
             const parsed = JSON.parse(raw);
@@ -410,13 +413,27 @@ class ValoboisApp {
         }
     }
 
+    loadData() {
+        return this.loadGuestDataFromLocalStorage();
+    }
+
+    reloadGuestStateFromLocalStorage() {
+        this.persistenceMode = 'guest';
+        this.data = this.loadGuestDataFromLocalStorage();
+        this.currentLotIndex = 0;
+        this.render();
+    }
+
     saveData() {
         try {
             this.data.meta = this.getDefaultMeta(this.data.meta || {});
             this.data.meta.revision = (Number(this.data.meta.revision) || 0) + 1;
-            localStorage.setItem(this.storageKey, JSON.stringify(this.data));
-            if (typeof window.__valoboisScheduleCloudSave === 'function') {
-                window.__valoboisScheduleCloudSave(this);
+            if (this.persistenceMode === 'cloud') {
+                if (typeof window.__valoboisScheduleCloudSave === 'function') {
+                    window.__valoboisScheduleCloudSave(this);
+                }
+            } else {
+                localStorage.setItem(this.storageKey, JSON.stringify(this.data));
             }
         } catch (e) {
             console.error(e);
@@ -7459,7 +7476,13 @@ renderRadar() {
 
     /* ---- Reset / Save / Export ---- */
     resetAllData() {
-        try { localStorage.removeItem(this.storageKey); } catch(e) { console.error(e); }
+        if (this.persistenceMode === 'guest') {
+            try {
+                localStorage.removeItem(this.storageKey);
+            } catch (e) {
+                console.error(e);
+            }
+        }
         this.data = this.createInitialData();
         this.currentLotIndex = 0;
         if (typeof window.__valoboisResetFirestoreEvaluation === 'function') {

@@ -5,6 +5,11 @@
         container.textContent = '';
         if (user && user.email) {
             container.appendChild(document.createTextNode(user.email + ' · '));
+            var listLink = document.createElement('a');
+            listLink.href = 'mes-evaluations.html';
+            listLink.textContent = 'Mes évaluations';
+            container.appendChild(listLink);
+            container.appendChild(document.createTextNode(' · '));
             var a = document.createElement('a');
             a.href = 'auth.html';
             a.textContent = 'Compte';

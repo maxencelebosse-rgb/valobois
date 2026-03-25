@@ -21,6 +21,22 @@
 </head>
 
 <body>
+    <script>
+        (function () {
+            try {
+                var u = new URL(window.location.href);
+                if (u.searchParams.get('eval') === 'new') {
+                    try {
+                        localStorage.removeItem('valobois_v1');
+                        sessionStorage.setItem('valobois_intent_new_eval', '1');
+                    } catch (e) { /* ignore */ }
+                    u.searchParams.delete('eval');
+                    u.hash = '#valobois_new_eval';
+                    window.location.replace(u.pathname + u.search + u.hash);
+                }
+            } catch (e) { /* ignore */ }
+        })();
+    </script>
     <div class="auth-top-banner">
         <span id="auth-header-status" aria-live="polite"></span>
         <button type="button" class="theme-toggle-btn theme-toggle-btn--banner" id="btnThemeToggle"

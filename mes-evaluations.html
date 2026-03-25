@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VALOBOIS – Mes évaluations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="auth-top-banner mes-eval-page-banner" role="toolbar" aria-label="Affichage">
+        <button type="button" class="theme-toggle-btn theme-toggle-btn--banner" id="btnThemeToggle"
+            title="Basculer entre mode jour et mode nuit">
+            Mode nuit
+        </button>
+    </div>
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('valoboisTheme') !== 'night') {
+                    document.body.classList.add('day-mode');
+                }
+            } catch (e) { /* ignore */ }
+            var btn = document.getElementById('btnThemeToggle');
+            if (btn) {
+                btn.textContent = document.body.classList.contains('day-mode') ? 'Mode nuit' : 'Mode jour';
+            }
+        })();
+    </script>
+    <main class="auth-main mes-eval-main">
+        <p class="auth-back">
+            <a href="index.html">← Retour à l'évaluation</a>
+        </p>
+
+        <div class="card auth-card mes-eval-card">
+            <h1 class="auth-title">Mes évaluations</h1>
+
+            <p id="mesEvalConfigHint" class="auth-config-hint" hidden>
+                La configuration Firebase n’est pas renseignée. Éditez
+                <code>js/config/firebase-config.js</code>.
+            </p>
+
+            <p id="mesEvalError" class="auth-error" role="alert" hidden></p>
+
+            <p id="mesEvalLoading" class="mes-eval-loading">Chargement…</p>
+
+            <div id="mesEvalToolbar" class="mes-eval-toolbar hidden">
+                <a class="btn btn-primary" id="mesEvalNewEvalLink" href="index.html?eval=new">Nouvelle évaluation</a>
+            </div>
+
+            <ul id="mesEvalList" class="mes-eval-list hidden" aria-label="Liste des évaluations"></ul>
+
+            <p id="mesEvalEmpty" class="mes-eval-empty hidden">Aucune évaluation enregistrée dans le nuage pour ce
+                compte.</p>
+        </div>
+    </main>
+
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+    <script defer src="js/config/firebase-config.js"></script>
+    <script defer src="js/lib/firebase-app-auth.js"></script>
+    <script defer src="js/app/mes-evaluations-page.js"></script>
+</body>
+
+</html>
