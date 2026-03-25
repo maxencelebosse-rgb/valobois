@@ -2,6 +2,9 @@
             --color-black: #000000;
             --color-white: #FFFFFF;
             --color-text: #111111;
+            --color-text-secondary: #555555;
+            --color-primary: #1D3D96;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
             --color-border: #CCCCCC;
             --color-gray-300: #B3B3B3;
             --disabled-surface: #B3B3B3;
@@ -200,15 +203,30 @@
     top: var(--space-16);
     right: var(--space-16);
     z-index: 40;
-    max-width: min(22rem, calc(100vw - var(--space-16) * 2));
+    max-width: min(32rem, calc(100vw - var(--space-16) * 2));
     padding: 6px 10px;
     font-size: var(--font-size-sm);
     line-height: 1.35;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-8);
     text-align: right;
     background-color: var(--color-white);
     color: var(--color-text);
     border-radius: var(--radius-base);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.auth-top-banner #auth-header-status {
+    min-width: 0;
+}
+
+.auth-top-banner .theme-toggle-btn--banner {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: var(--font-size-sm);
 }
 
 .auth-top-banner a {
@@ -6418,6 +6436,247 @@ body.day-mode .lot-group--collapsible summary:hover {
     .ancien-slider-wrapper
 ) {
     padding: var(--notation-slider-cell-pad-y-compact) var(--notation-slider-cell-pad-x-compact);
+}
+
+/* ===== MODE NUIT (body sans .day-mode) ===== */
+
+html:has(body:not(.day-mode)) {
+    background-color: #12141a;
+    color-scheme: dark;
+}
+
+body:not(.day-mode) {
+    --color-text: #e8eaed;
+    --color-text-secondary: #9aa0a6;
+    --color-border: #3c424a;
+    --color-gray-300: #6b7280;
+    --disabled-surface: #5c6370;
+    --disabled-border: #4a5058;
+    --disabled-text: #8a9099;
+    background-color: #12141a;
+    color: var(--color-text);
+}
+
+body:not(.day-mode) .card,
+body:not(.day-mode) .accueil-card {
+    background-color: #1e2228;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+body:not(.day-mode) .auth-top-banner {
+    background-color: #1e2228;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* Méta accueil & sous-blocs */
+body:not(.day-mode) .accueil-panel {
+    background-color: #252a32;
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .accueil-subsection {
+    background-color: #2a3038;
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+body:not(.day-mode) .accueil-meta-hint {
+    color: var(--color-text-secondary);
+}
+
+body:not(.day-mode) .accueil-input,
+body:not(.day-mode) .accueil-select,
+body:not(.day-mode) .accueil-textarea {
+    background-color: #2d3139;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .accueil-input[readonly],
+body:not(.day-mode) .accueil-select[readonly] {
+    background-color: #363d47;
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .accueil-input::placeholder,
+body:not(.day-mode) .accueil-select::placeholder,
+body:not(.day-mode) .accueil-textarea::placeholder {
+    color: #6b7280;
+}
+
+/* Page auth (auth.html — pas de day-mode si non basculé) */
+body:not(.day-mode) .auth-tab {
+    background-color: #2a3038;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .auth-tab[aria-selected='true'] {
+    background-color: #141820;
+    color: var(--color-white);
+    border: 1px solid var(--color-border);
+}
+
+body:not(.day-mode) .auth-input {
+    background-color: #2d3139;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .auth-tabs {
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .auth-error {
+    color: #ff8a8a;
+}
+
+/* Modales */
+body:not(.day-mode) .modal,
+body:not(.day-mode) .modal-header,
+body:not(.day-mode) .modal-body,
+body:not(.day-mode) .modal-footer {
+    background-color: #1e2228;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .modal-header {
+    border-bottom-color: var(--color-border);
+}
+
+body:not(.day-mode) .modal-footer {
+    border-top-color: var(--color-border);
+}
+
+body:not(.day-mode) .modal-close {
+    color: var(--color-text);
+}
+
+body:not(.day-mode) .info-sheet-intro {
+    background-color: #2d2820;
+    border-color: #5c5346;
+    color: #ece8df;
+}
+
+body:not(.day-mode) .info-sheet-section {
+    background-color: #252a32;
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+body:not(.day-mode) .info-sheet-note,
+body:not(.day-mode) .detail-modal-subtitle {
+    background-color: #1a2535;
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+/* Cartes de lots & saisie */
+body:not(.day-mode) .lot-card {
+    background-color: rgba(42, 48, 58, 0.95);
+    border-color: #3a414d;
+}
+
+body:not(.day-mode) .lot-card:hover {
+    box-shadow: var(--shadow-sm), 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+body:not(.day-mode) .lot-card--active {
+    background-color: #2f3640;
+    border-color: var(--bleu-crai);
+    box-shadow: 0 0 0 1px rgba(29, 61, 150, 0.45);
+}
+
+body:not(.day-mode) .lot-card--add {
+    background-color: rgba(30, 34, 40, 0.75);
+    border-color: #4a5058;
+    color: var(--color-text-secondary);
+}
+
+body:not(.day-mode) .lot-card-title {
+    background-color: #252a32;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .lot-input {
+    background-color: #2d3139;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+body:not(.day-mode) .lot-input[readonly] {
+    background-color: #363d47;
+    border-color: #4a5568;
+    color: #c5cbd3;
+}
+
+body:not(.day-mode) .lot-input[readonly]::selection {
+    background-color: rgba(120, 140, 180, 0.35);
+}
+
+body:not(.day-mode) .lot-dimension-field[data-muted='true'] > .lot-field-label,
+body:not(.day-mode) .lot-price-summary-row .lot-field-block[data-muted='true'] > .lot-field-label {
+    color: var(--color-text-secondary);
+}
+
+body:not(.day-mode) .lot-dimension-field[data-muted='true'] > .lot-dimension-input-wrap .lot-input,
+body:not(.day-mode) .lot-dimension-computed[data-muted='true'] .lot-input,
+body:not(.day-mode) .lot-price-summary-row .lot-field-block[data-muted='true'] .lot-input-with-unit .lot-input {
+    background-color: #252830;
+    color: var(--color-text-secondary);
+}
+
+body:not(.day-mode) .btn-primary {
+    background-color: var(--bleu-crai);
+    color: var(--color-white);
+}
+
+body:not(.day-mode) .btn-primary:hover {
+    background-color: #152d6e;
+}
+
+body:not(.day-mode) .btn.btn-secondary {
+    background-color: #3a424d;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+body:not(.day-mode) .btn.btn-secondary:hover {
+    background-color: #4a5360;
+}
+
+body:not(.day-mode) #exportPdfBackdrop .export-modal-select {
+    background-color: #2d3139;
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+/* Groupes repliables dans les lots */
+body:not(.day-mode) .lot-group--collapsible summary {
+    background-color: #2a3038;
+    border-color: var(--color-border);
+    color: #b4c4ff !important;
+}
+
+body:not(.day-mode) .lot-group--collapsible summary::after {
+    color: #b4c4ff !important;
+}
+
+body:not(.day-mode) .lot-group--collapsible summary:hover {
+    background-color: #323842;
+}
+
+body:not(.day-mode) .lot-group--collapsible .lot-group-content {
+    background-color: #252a32;
+    border-color: var(--color-border);
+    color: var(--color-text);
 }
 
 /* ===== MODE JOUR ===== */
