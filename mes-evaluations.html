@@ -14,6 +14,7 @@
 
 <body>
     <div class="auth-top-banner mes-eval-page-banner" role="toolbar" aria-label="Affichage">
+        <span id="auth-header-status" aria-live="polite"></span>
         <button type="button" class="theme-toggle-btn theme-toggle-btn--banner" id="btnThemeToggle"
             title="Basculer entre mode jour et mode nuit">
             Mode nuit
@@ -65,6 +66,7 @@
     <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
     <script defer src="js/config/firebase-config.js"></script>
     <script defer src="js/lib/firebase-app-auth.js"></script>
+    <script defer src="js/app/auth-header.js"></script>
     <script defer src="js/app/mes-evaluations-page.js"></script>
 </body>
 

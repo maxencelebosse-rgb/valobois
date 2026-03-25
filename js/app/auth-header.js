@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function renderAuthStatus(container, user) {
+    function renderAuthStatus(container, user, authInstance) {
         container.textContent = '';
         if (user && user.email) {
             container.appendChild(document.createTextNode(user.email + ' · '));
@@ -10,10 +10,26 @@
             listLink.textContent = 'Mes évaluations';
             container.appendChild(listLink);
             container.appendChild(document.createTextNode(' · '));
-            var a = document.createElement('a');
-            a.href = 'auth.html';
-            a.textContent = 'Compte';
-            container.appendChild(a);
+            var signOutBtn = document.createElement('button');
+            signOutBtn.type = 'button';
+            signOutBtn.className = 'auth-banner-signout';
+            signOutBtn.textContent = 'Se déconnecter';
+            signOutBtn.addEventListener('click', function () {
+                if (!authInstance) return;
+                authInstance
+                    .signOut()
+                    .then(function () {
+                        try {
+                            localStorage.removeItem('valobois_firestore_eval_id');
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    })
+                    .catch(function (err) {
+                        console.error(err);
+                    });
+            });
+            container.appendChild(signOutBtn);
             return;
         }
         container.appendChild(document.createTextNode('Non connecté · '));
@@ -38,7 +54,7 @@
         }
 
         auth.onAuthStateChanged(function (user) {
-            renderAuthStatus(el, user);
+            renderAuthStatus(el, user, auth);
         });
     });
 })();
