@@ -21,6 +21,9 @@
 </head>
 
 <body>
+    <div class="auth-top-banner">
+        <span id="auth-header-status" aria-live="polite"></span>
+    </div>
     <main>
         <!-- En-tête / Accueil -->
         <section class="card accueil-card">
@@ -3324,6 +3327,11 @@
     <script defer src="js/data/datalist-situations-lot.js"></script>
     <script defer src="js/lib/datalist-populate.js"></script>
     <script defer src="js/lib/build-standalone-html.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+    <script defer src="js/config/firebase-config.js"></script>
+    <script defer src="js/lib/firebase-app-auth.js"></script>
+    <script defer src="js/app/auth-header.js"></script>
     <script defer src="js/app/valobois-app.js"></script>
     <script defer src="js/ui/version-input-width.js"></script>
 </body>

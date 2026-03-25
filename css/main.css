@@ -194,6 +194,147 @@
     }
 }
 
+/* Bandeau compte / connexion — haut droite, visible sur toute la page d'évaluation */
+.auth-top-banner {
+    position: fixed;
+    top: var(--space-16);
+    right: var(--space-16);
+    z-index: 40;
+    max-width: min(22rem, calc(100vw - var(--space-16) * 2));
+    padding: 6px 10px;
+    font-size: var(--font-size-sm);
+    line-height: 1.35;
+    text-align: right;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border-radius: var(--radius-base);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.auth-top-banner a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Page Compte Firebase (auth.html) */
+
+.auth-main {
+    max-width: 440px;
+    margin-inline: auto;
+    padding-top: var(--space-24);
+}
+
+.auth-back {
+    margin: 0 0 var(--space-16);
+    font-size: var(--font-size-sm);
+}
+
+.auth-back a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.auth-card {
+    margin-bottom: var(--space-24);
+}
+
+.auth-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-16);
+}
+
+.auth-config-hint {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-12);
+}
+
+.auth-config-hint code {
+    font-size: 0.9em;
+    word-break: break-all;
+}
+
+.auth-error {
+    font-size: var(--font-size-sm);
+    color: #b00020;
+    margin: 0 0 var(--space-12);
+}
+
+body.day-mode .auth-error {
+    color: #9a0000;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: var(--space-16);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.auth-tab[aria-selected='true'] {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+body.day-mode .auth-tab[aria-selected='true'] {
+    background-color: var(--color-text);
+    color: var(--color-white);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+}
+
+.auth-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.auth-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    background-color: var(--color-white);
+    color: var(--color-text);
+    box-sizing: border-box;
+}
+
+.auth-submit {
+    margin-top: var(--space-8);
+}
+
+.auth-logged-in {
+    padding-top: var(--space-8);
+}
+
+.auth-logged-in-text {
+    margin: 0 0 var(--space-16);
+    font-size: var(--font-size-sm);
+}
+
+.auth-logged-in-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+}
+
 .accueil-apropos-toggle {
     width: 100%;
     display: flex;
